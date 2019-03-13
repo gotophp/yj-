@@ -170,6 +170,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysqlsubstr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/13/mysqlsubstr/">记录一次mysql批量同步 取右边开始数第一位数字 同步到某个字段</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/13/mysqlsubstr/" class="archive-article-date">
+  	<time datetime="2019-03-13T03:07:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h6 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null</span><br></pre></td></tr></table></figure>
+<h6 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 创建</span><br><span class="line">create procedure update_aid()</span><br><span class="line">begin</span><br><span class="line">declare i int;</span><br><span class="line">set i = -1;</span><br><span class="line">while i &gt; - 20  do</span><br><span class="line">UPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN substring(RegisterNo, i, 1)  REGEXP &apos;[0-9]&apos; = 1 THEN substring(RegisterNo, i, 1) </span><br><span class="line">ELSE NULL END AS temp from g_vehicle) AS b ON a.id = b.id  SET a.aid = b.temp  WHERE a.aid IS NULL;</span><br><span class="line">set i = i + -1;</span><br><span class="line">end while;</span><br><span class="line">end;</span><br><span class="line">-- 执行</span><br><span class="line">call update_aid();</span><br><span class="line">-- 删除</span><br><span class="line">drop procedure update_aid;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/03/13/mysqlsubstr/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/13/mysqlsubstr/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-zhidingshijian" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -266,10 +347,10 @@
     	</div>
        <div class="footer-center" style="margin-right: 38px;"> 
         <span id="busuanzi_container_site_pv">
-          访问量:2019226<span id="busuanzi_value_site_pv">477822</span>
+          访问量:2019313<span id="busuanzi_value_site_pv">477822</span>
          </span>
       <span id="busuanzi_container_site_uv"> 
-        访客数:20192<span id="busuanzi_value_site_uv"></span>
+        访客数:20193<span id="busuanzi_value_site_uv"></span>
       </span>
     </div> 
       <div class="footer-center">
@@ -363,6 +444,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
