@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://www.gotophp.cn">
   <title>记录一次mysql批量同步 取右边开始数第一位数字 同步到某个字段 | yj 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null 实践123456789101112131415-- 创建create procedure update_aid()begindeclare i int;set i = -1;while i &amp;gt; - 20  doUPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN su">
+  <meta name="description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null">
 <meta name="keywords" content="php,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录一次mysql批量同步 取右边开始数第一位数字 同步到某个字段">
 <meta property="og:url" content="https://www.gotophp.cn/2019/03/13/mysqlsubstr/index.html">
 <meta property="og:site_name" content="yj 博客">
-<meta property="og:description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null 实践123456789101112131415-- 创建create procedure update_aid()begindeclare i int;set i = -1;while i &amp;gt; - 20  doUPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN su">
+<meta property="og:description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-13T03:38:21.187Z">
+<meta property="og:updated_time" content="2019-03-13T03:41:15.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录一次mysql批量同步 取右边开始数第一位数字 同步到某个字段">
-<meta name="twitter:description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null 实践123456789101112131415-- 创建create procedure update_aid()begindeclare i int;set i = -1;while i &amp;gt; - 20  doUPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN su">
+<meta name="twitter:description" content="需求1截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null">
   
     <link rel="alternative" href="/atom.xml" title="yj 博客" type="application/atom+xml">
   
@@ -190,8 +190,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h6 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">截取车牌字段从右到左数第一位数字填充到某个字段 没有填充null</span><br></pre></td></tr></table></figure>
-<h6 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 创建</span><br><span class="line">create procedure update_aid()</span><br><span class="line">begin</span><br><span class="line">declare i int;</span><br><span class="line">set i = -1;</span><br><span class="line">while i &gt; - 20  do</span><br><span class="line">UPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN substring(RegisterNo, i, 1)  REGEXP &apos;[0-9]&apos; = 1 THEN substring(RegisterNo, i, 1) </span><br><span class="line">ELSE NULL END AS temp from g_vehicle) AS b ON a.id = b.id  SET a.aid = b.temp  WHERE a.aid IS NULL;</span><br><span class="line">set i = i + -1;</span><br><span class="line">end while;</span><br><span class="line">end;</span><br><span class="line">-- 执行</span><br><span class="line">call update_aid();</span><br><span class="line">-- 删除</span><br><span class="line">drop procedure update_aid;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<h6 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 创建</span><br><span class="line">create procedure update_aid()</span><br><span class="line">begin</span><br><span class="line">declare i int;</span><br><span class="line">set i = -1;</span><br><span class="line">while i &gt; - 20  do</span><br><span class="line">UPDATE g_vehicle AS a INNER JOIN (select id,CASE WHEN substring(RegisterNo, i, 1)  REGEXP &apos;[0-9]&apos; = 1 THEN substring(RegisterNo, i, 1) </span><br><span class="line">ELSE NULL END AS temp from g_vehicle) AS b ON a.id = b.id  SET a.aid = b.temp  WHERE a.aid IS NULL;</span><br><span class="line">set i = i + -1;</span><br><span class="line">end while;</span><br><span class="line">end;</span><br><span class="line">-- 执行</span><br><span class="line">call update_aid();</span><br><span class="line">-- 删除</span><br><span class="line">drop procedure update_aid;</span><br></pre></td></tr></table></figure>
+<p>=</p>
 
       
 
